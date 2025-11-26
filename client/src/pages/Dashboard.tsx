@@ -21,7 +21,7 @@ export default function Dashboard() {
       trend: { value: "+28% from last month", positive: true },
     },
     {
-      title: "Active Templates",
+      title: "Recent Batches",
       value: "18",
       icon: FileText,
     },
