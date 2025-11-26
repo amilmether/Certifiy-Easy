@@ -1,4 +1,4 @@
-import { Home, Calendar, FileText, Settings, Award, LogOut, PlusCircle } from "lucide-react";
+import { Home, Calendar, History, Settings, Award, LogOut, PlusCircle } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -27,9 +27,9 @@ const menuItems = [
     icon: Calendar,
   },
   {
-    title: "Templates",
-    url: "/templates",
-    icon: FileText,
+    title: "History",
+    url: "/history",
+    icon: History,
   },
   {
     title: "Create Certificate",
@@ -55,7 +55,7 @@ export function AppSidebar() {
           </div>
           <div>
             <h2 className="font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
-              CertiFlow
+              CertifyEasy
             </h2>
             <p className="text-xs text-muted-foreground">Certificate Generator</p>
           </div>

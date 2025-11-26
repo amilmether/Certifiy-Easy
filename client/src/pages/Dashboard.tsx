@@ -92,7 +92,7 @@ export default function Dashboard() {
               className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Welcome to CertiFlow
+              Welcome to CertifyEasy
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               Generate, manage, and distribute professional certificates at scale. 
@@ -161,7 +161,7 @@ export default function Dashboard() {
             >
               Recent Certificates
             </h2>
-            <Link href="/templates">
+            <Link href="/history">
               <Button variant="ghost" data-testid="button-view-all-certificates">
                 View All
               </Button>

@@ -9,8 +9,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Dashboard from "@/pages/Dashboard";
 import Events from "@/pages/Events";
-import Templates from "@/pages/Templates";
+import History from "@/pages/History";
 import CreateCertificate from "@/pages/CreateCertificate";
+import Settings from "@/pages/Settings";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,8 +19,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Dashboard} />
       <Route path="/events" component={Events} />
-      <Route path="/templates" component={Templates} />
+      <Route path="/history" component={History} />
       <Route path="/create" component={CreateCertificate} />
+      <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
   );
