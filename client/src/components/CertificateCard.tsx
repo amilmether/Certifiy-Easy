@@ -32,21 +32,19 @@ export function CertificateCard({
   return (
     <GlassCard hover>
       <div className="p-6">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <FileText className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h3
-                  className="font-semibold"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {templateName}
-                </h3>
-                <p className="text-sm text-muted-foreground">{eventName}</p>
-              </div>
+        <div className="flex items-start justify-between gap-2 mb-4">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
+            <div className="min-w-0">
+              <h3
+                className="font-semibold truncate"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {templateName}
+              </h3>
+              <p className="text-sm text-muted-foreground truncate">{eventName}</p>
             </div>
           </div>
           <DropdownMenu>
@@ -63,9 +61,9 @@ export function CertificateCard({
           </DropdownMenu>
         </div>
 
-        <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground flex-wrap">
           <span>{recipientCount} recipients</span>
-          <span>•</span>
+          <span className="text-border">|</span>
           <span>{createdDate}</span>
         </div>
 
@@ -83,7 +81,7 @@ export function CertificateCard({
           <Button
             onClick={onShare}
             size="sm"
-            variant="secondary"
+            variant="outline"
             data-testid="button-share-certificate"
           >
             <Share2 className="h-4 w-4" />
@@ -91,7 +89,7 @@ export function CertificateCard({
           <Button
             onClick={onEmail}
             size="sm"
-            variant="secondary"
+            variant="outline"
             data-testid="button-email-certificate"
           >
             <Mail className="h-4 w-4" />

@@ -35,21 +35,21 @@ export function EventCard({
   return (
     <GlassCard hover>
       <div className="p-6">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-start justify-between gap-2 mb-4">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap mb-2">
               <h3
-                className="font-semibold text-lg"
+                className="font-semibold text-lg truncate"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {title}
               </h3>
-              <Badge variant={type === "large" ? "default" : "secondary"}>
+              <Badge variant={type === "large" ? "default" : "secondary"} className="shrink-0">
                 {type === "large" ? "Large Event" : "Single Event"}
               </Badge>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="h-4 w-4" />
+              <Calendar className="h-4 w-4 shrink-0" />
               <span>{date}</span>
             </div>
           </div>
@@ -77,27 +77,27 @@ export function EventCard({
           </DropdownMenu>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-muted-foreground" />
-            <div>
+            <Users className="h-4 w-4 text-muted-foreground shrink-0" />
+            <div className="min-w-0">
               <p className="text-sm font-medium">{participantCount}</p>
-              <p className="text-xs text-muted-foreground">Participants</p>
+              <p className="text-xs text-muted-foreground truncate">Participants</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Award className="h-4 w-4 text-muted-foreground" />
-            <div>
+            <Award className="h-4 w-4 text-muted-foreground shrink-0" />
+            <div className="min-w-0">
               <p className="text-sm font-medium">{certificateCount}</p>
-              <p className="text-xs text-muted-foreground">Certificates</p>
+              <p className="text-xs text-muted-foreground truncate">Certificates</p>
             </div>
           </div>
           {subEventCount !== undefined && (
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <div>
+              <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
+              <div className="min-w-0">
                 <p className="text-sm font-medium">{subEventCount}</p>
-                <p className="text-xs text-muted-foreground">Sub-events</p>
+                <p className="text-xs text-muted-foreground truncate">Sub-events</p>
               </div>
             </div>
           )}

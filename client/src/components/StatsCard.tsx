@@ -14,13 +14,13 @@ interface StatsCardProps {
 
 export function StatsCard({ title, value, icon: Icon, description, trend }: StatsCardProps) {
   return (
-    <GlassCard>
+    <GlassCard hover>
       <div className="p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <p className="text-sm text-muted-foreground mb-1">{title}</p>
             <h3
-              className="text-3xl font-bold mb-2"
+              className="text-3xl font-bold mb-1"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               {value}
@@ -30,15 +30,15 @@ export function StatsCard({ title, value, icon: Icon, description, trend }: Stat
             )}
             {trend && (
               <p
-                className={`text-sm font-medium mt-2 ${
+                className={`text-xs font-medium mt-2 ${
                   trend.positive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
                 }`}
               >
-                {trend.positive ? "↑" : "↓"} {trend.value}
+                {trend.positive ? "+" : ""}{trend.value}
               </p>
             )}
           </div>
-          <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+          <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
             <Icon className="h-6 w-6 text-primary" />
           </div>
         </div>

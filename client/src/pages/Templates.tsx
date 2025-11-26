@@ -122,15 +122,20 @@ export default function Templates() {
               </div>
               <div>
                 <Label>Upload Template Image/PDF</Label>
-                <FileUploadZone
-                  onFileSelect={(file) => {
-                    setUploadedFile(file);
-                    console.log("File uploaded:", file.name);
-                  }}
-                  accept="image/*,.pdf"
-                  label="Upload Template"
-                  description="PNG, JPG, or PDF (max 10MB)"
-                />
+                <div className="mt-2">
+                  <FileUploadZone
+                    onFileSelect={(file) => {
+                      setUploadedFile(file);
+                      if (file) console.log("File uploaded:", file.name);
+                    }}
+                    accept={{
+                      "image/*": [".png", ".jpg", ".jpeg"],
+                      "application/pdf": [".pdf"],
+                    }}
+                    label="Upload Template"
+                    description="PNG, JPG, or PDF (max 10MB)"
+                  />
+                </div>
               </div>
               <div className="flex gap-2 pt-4">
                 <Button

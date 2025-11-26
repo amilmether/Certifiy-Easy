@@ -1,4 +1,4 @@
-import { Home, Calendar, FileText, Settings, Award, LogOut } from "lucide-react";
+import { Home, Calendar, FileText, Settings, Award, LogOut, PlusCircle } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -34,7 +34,7 @@ const menuItems = [
   {
     title: "Create Certificate",
     url: "/create",
-    icon: Award,
+    icon: PlusCircle,
   },
   {
     title: "Settings",
@@ -48,10 +48,10 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="p-6">
+      <SidebarHeader className="p-4 border-b border-sidebar-border">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Award className="h-6 w-6 text-primary" />
+          <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center">
+            <Award className="h-5 w-5 text-primary-foreground" />
           </div>
           <div>
             <h2 className="font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
@@ -62,7 +62,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="p-2">
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -70,7 +70,7 @@ export function AppSidebar() {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={location === item.url}>
-                    <Link href={item.url} data-testid={`link-${item.title.toLowerCase().replace(" ", "-")}`}>
+                    <Link href={item.url} data-testid={`link-${item.title.toLowerCase().replace(/\s+/g, "-")}`}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
                     </Link>
@@ -82,11 +82,11 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4">
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-sidebar-accent/50">
-          <Avatar className="h-10 w-10">
+      <SidebarFooter className="p-4 border-t border-sidebar-border">
+        <div className="flex items-center gap-3 p-2 rounded-lg">
+          <Avatar className="h-9 w-9">
             <AvatarImage src="" />
-            <AvatarFallback className="bg-primary/20 text-primary font-semibold">
+            <AvatarFallback className="bg-primary/10 text-primary text-sm font-semibold">
               JD
             </AvatarFallback>
           </Avatar>
@@ -97,7 +97,6 @@ export function AppSidebar() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8"
             data-testid="button-logout"
           >
             <LogOut className="h-4 w-4" />

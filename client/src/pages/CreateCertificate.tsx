@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileText, Upload, Send, Download } from "lucide-react";
+import { FileText, Send, Download, CloudUpload } from "lucide-react";
 import { GlassCard } from "@/components/GlassCard";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { Button } from "@/components/ui/button";
@@ -9,11 +9,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Progress } from "@/components/ui/progress";
 
 export default function CreateCertificate() {
   const [excelFile, setExcelFile] = useState<File | null>(null);
-  const [templateFile, setTemplateFile] = useState<File | null>(null);
   const [activeTab, setActiveTab] = useState("single");
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleGenerate = () => {
+    setIsGenerating(true);
+    setTimeout(() => setIsGenerating(false), 2000);
+  };
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -129,27 +135,33 @@ export default function CreateCertificate() {
                     </Select>
                   </div>
                   <Separator />
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="send-email" data-testid="checkbox-send-email" />
-                    <Label htmlFor="send-email" className="text-sm font-normal">
-                      Send certificate via email
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="save-drive" data-testid="checkbox-save-drive" />
-                    <Label htmlFor="save-drive" className="text-sm font-normal">
-                      Save to Google Drive
-                    </Label>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="send-email" data-testid="checkbox-send-email" />
+                      <Label htmlFor="send-email" className="text-sm font-normal cursor-pointer">
+                        Send certificate via email
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="save-drive" data-testid="checkbox-save-drive" />
+                      <Label htmlFor="save-drive" className="text-sm font-normal cursor-pointer">
+                        Save to Google Drive
+                      </Label>
+                    </div>
                   </div>
                   <Separator />
-                  <div className="flex gap-2 pt-4">
+                  <div className="flex gap-2 pt-2">
                     <Button
                       className="flex-1"
-                      onClick={() => console.log("Generate certificate")}
+                      onClick={() => {
+                        console.log("Generate certificate");
+                        handleGenerate();
+                      }}
+                      disabled={isGenerating}
                       data-testid="button-generate-single"
                     >
                       <FileText className="mr-2 h-4 w-4" />
-                      Generate
+                      {isGenerating ? "Generating..." : "Generate"}
                     </Button>
                     <Button
                       variant="outline"
@@ -182,9 +194,13 @@ export default function CreateCertificate() {
                       <FileUploadZone
                         onFileSelect={(file) => {
                           setExcelFile(file);
-                          console.log("Excel file uploaded:", file.name);
+                          if (file) console.log("Excel file uploaded:", file.name);
                         }}
-                        accept=".xlsx,.xls,.csv"
+                        accept={{
+                          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
+                          "application/vnd.ms-excel": [".xls"],
+                          "text/csv": [".csv"],
+                        }}
                         label="Upload Excel/CSV"
                         description="Excel or CSV file with recipient data"
                       />
@@ -235,40 +251,73 @@ export default function CreateCertificate() {
                   <div className="space-y-3">
                     <div className="flex items-center space-x-2">
                       <Checkbox id="bulk-email" defaultChecked data-testid="checkbox-bulk-email" />
-                      <Label htmlFor="bulk-email" className="text-sm font-normal">
+                      <Label htmlFor="bulk-email" className="text-sm font-normal cursor-pointer">
                         Send via email to all recipients
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="bulk-drive" defaultChecked data-testid="checkbox-bulk-drive" />
-                      <Label htmlFor="bulk-drive" className="text-sm font-normal">
+                      <Label htmlFor="bulk-drive" className="text-sm font-normal cursor-pointer">
                         Upload to Google Drive
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="bulk-zip" defaultChecked data-testid="checkbox-bulk-zip" />
-                      <Label htmlFor="bulk-zip" className="text-sm font-normal">
+                      <Label htmlFor="bulk-zip" className="text-sm font-normal cursor-pointer">
                         Download as ZIP file
                       </Label>
                     </div>
                   </div>
                   <Separator />
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="font-medium mb-2 text-sm">Summary</h3>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <p>Recipients: {excelFile ? "File uploaded ✓" : "No file yet"}</p>
-                      <p>Template: Not selected</p>
-                      <p>Event: Not selected</p>
+                  <div className="rounded-lg bg-muted/50 p-4">
+                    <h3 className="font-medium mb-3 text-sm">Summary</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Recipients:</span>
+                        <span className="font-medium">
+                          {excelFile ? "File uploaded" : "No file yet"}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Template:</span>
+                        <span className="font-medium">Not selected</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Event:</span>
+                        <span className="font-medium">Not selected</span>
+                      </div>
                     </div>
                   </div>
+                  
+                  {isGenerating && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Generating certificates...</span>
+                        <span>45%</span>
+                      </div>
+                      <Progress value={45} />
+                    </div>
+                  )}
+                  
                   <div className="flex gap-2">
                     <Button
                       className="flex-1"
-                      onClick={() => console.log("Generate bulk certificates")}
+                      onClick={() => {
+                        console.log("Generate bulk certificates");
+                        handleGenerate();
+                      }}
+                      disabled={isGenerating}
                       data-testid="button-generate-bulk"
                     >
                       <Send className="mr-2 h-4 w-4" />
-                      Generate & Send
+                      {isGenerating ? "Generating..." : "Generate & Send"}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => console.log("Upload to Drive")}
+                      data-testid="button-upload-drive"
+                    >
+                      <CloudUpload className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>

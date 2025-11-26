@@ -1,10 +1,9 @@
-import { Award, Calendar, FileText, Users } from "lucide-react";
+import { Award, Calendar, FileText, Users, Sparkles } from "lucide-react";
 import { StatsCard } from "@/components/StatsCard";
 import { EventCard } from "@/components/EventCard";
 import { CertificateCard } from "@/components/CertificateCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import heroImage from "@assets/generated_images/hero_background_gradient_illustration.png";
 
 export default function Dashboard() {
   // todo: remove mock functionality
@@ -78,24 +77,28 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-[400px] mb-12 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-        <div className="relative h-full flex items-center justify-center px-6">
-          <div className="text-center max-w-3xl backdrop-blur-md bg-background/30 p-12 rounded-3xl border border-border/20">
+      <div className="relative mb-12 overflow-hidden bg-gradient-to-br from-primary/10 via-purple-500/10 to-pink-500/10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent" />
+        
+        <div className="relative py-16 px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
+              <Sparkles className="h-4 w-4" />
+              <span>Professional Certificate Generator</span>
+            </div>
+            
             <h1
-              className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
+              className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Welcome to CertiFlow
             </h1>
-            <p className="text-lg text-muted-foreground mb-6">
-              Generate, manage, and distribute professional certificates at scale
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Generate, manage, and distribute professional certificates at scale. 
+              Create beautiful certificates for events, workshops, and programs.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/create">
                 <Button size="lg" data-testid="button-create-certificate">
                   <Award className="mr-2 h-5 w-5" />
@@ -104,6 +107,7 @@ export default function Dashboard() {
               </Link>
               <Link href="/events">
                 <Button size="lg" variant="outline" data-testid="button-manage-events">
+                  <Calendar className="mr-2 h-5 w-5" />
                   Manage Events
                 </Button>
               </Link>
@@ -122,7 +126,7 @@ export default function Dashboard() {
 
         {/* Recent Events */}
         <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between gap-4 flex-wrap mb-6">
             <h2
               className="text-2xl font-bold"
               style={{ fontFamily: "var(--font-heading)" }}
@@ -150,7 +154,7 @@ export default function Dashboard() {
 
         {/* Recent Certificates */}
         <div>
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between gap-4 flex-wrap mb-6">
             <h2
               className="text-2xl font-bold"
               style={{ fontFamily: "var(--font-heading)" }}
